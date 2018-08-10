@@ -68,12 +68,24 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+# Rest Api
 fos_rest:
-  routing_loader:
-    default_format: json
-  view:
-    view_response_listener: 'force' # return objects directly from controller
+    routing_loader:
+        default_format: json
+    view:
+        view_response_listener: 'force' # return objects directly from controller
+    body_converter:
+        enabled: true
+        validate: true
+        validation_errors_argument: validationErrors
+    param_fetcher_listener: true # converts query params into method arguments
+    exception:
+        enabled: true
+        exception_controller: 'AppBundle\Controller\ExceptionController::showAction'
 
 sensio_framework_extra:
-  view:
-    annotations: true
+    view:
+        annotations: true
+    request:
+        converters: true

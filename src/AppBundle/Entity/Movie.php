@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert; // Adds validation
 
 /**
  * Movie
@@ -15,7 +16,7 @@ class Movie
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id",               type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,13 +26,17 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      */
     private $title;
 
     /**
      * @var int
-     *
+     * 
      * @ORM\Column(name="year", type="smallint")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=1888,  max=2020)
      */
     private $year;
 
@@ -39,6 +44,8 @@ class Movie
      * @var int
      *
      * @ORM\Column(name="time", type="smallint")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=1,     max=300)
      */
     private $time;
 
@@ -46,6 +53,7 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -156,4 +164,3 @@ class Movie
         return $this->description;
     }
 }
-
